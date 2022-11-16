@@ -1,0 +1,147 @@
+#recipe-info-container {
+    width: 100%;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#recipe-name {
+    margin-top: 40px;
+    height: 60px;
+    width: 100%;
+    font-size: xx-large;
+    text-align: center;
+    line-height: 60px;
+}
+
+#recipe-summary {
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main-image {
+    width: 600px;
+    height: 450px;
+
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 0px 6px 9px 2px rgba(1, 1, 1, 0.2);
+}
+
+.recipe-information {
+    margin-top: 50px;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-title {
+    position: relative;
+    width: 100%;
+    font-size: x-large;
+    padding: 0 0 20px 15px;
+    border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+.recipe-details {
+    position: relative;
+    left: 30px;
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 15px;
+    column-gap: 50px;
+    list-style: disc;
+    color: rgb(161, 161, 161);
+}
+
+.recipe-details li {
+    position: relative;
+}
+
+.detail-data {
+    position: absolute;
+    right: 40px;
+}
+
+#recipe-steps {
+    margin-top: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+#steps-title {
+    font-size: xx-large;
+}
+
+.step {
+    margin-top: 80px;
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.step-img {
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px 2px rgba(1, 1, 1, 0.2);
+}
+
+.step-info {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-num {
+    font-size: x-large;
+    text-align: center;
+    width: 80%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+.step-detail {
+    margin-top: 30px;
+    width: 80%;
+    line-height: 25px;
+    letter-spacing: 0.5px;
+}
+
+#error-box {
+    margin-top: 40px;
+    height: 490px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#not-found-image {
+    position: relative;
+    left: 10px;
+    height: 200px;
+    width: 200px;
+    opacity: 0.6;
+}
+
+#not-found-text {
+    margin-top: 30px;
+    font-size: x-large;
+    color: rgb(170, 170, 170);
+    font-weight: 400;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <title>Recipedia</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="inside-container">
+            <header>
+                <nav>
+                    <span id="terminal-section"></span>
+                    <span id="user-section">
+                        <a href="./favs.html" id="favs" class="nav-terminal">
+                            <i class="fi fi-rs-heart"></i>
+                        </a>
+                        <!-- <span id="log-out" class="nav-terminal">
+                            <i class="fi fi-rs-sign-out-alt"></i>
+                        </span> -->
+                        <button id="profile">
+                            <ul id="profile-options">
+                                <li id="option-login">
+                                    로그인
+                                </li>
+                                <li id="option-signup">
+                                    회원가입
+                                </li>
+                            </ul>
+                        </button>
+                    </span>
+                    <span id="profile-blocker"></span>
+                </nav>
+                <span id="logo-container">
+                    <img src="../images/logo.png" id="logo">
+                </span>
+            </header>
+            <form id="search-box">
+                <input type="text" name="q" id="text-input" placeholder="레시피 검색...">
+                <button type="submit" id="search">
+                    <i class="fi fi-rr-search"></i>
+                </button>
+            </form>
+            <div id="list-title">
+                <img src="../images/crown.png">
+                <span id="list-title-text">
+                    추천 레시피
+                </span>
+                <span id="filter-type-container">
+                    종류
+                    <select>
+                        <option value="전체" selected>전체</option>
+                        <option value="반찬">반찬</option>
+                        <option value="일품">일품</option>
+                        <option value="국&찌개">국&찌개</option>
+                        <option value="밥">밥</option>
+                        <option value="후식">후식</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </span>
+            </div>
+            <div id="arrow-container">
+                <span id="arrow-circle">
+                    <i class="fi fi-ss-arrow-to-top"></i>
+                </span>
+            </div>
+        </div>
+        <footer>
+            <span>
+                ⓒ 2022 김원욱, 이현준, 최장우. All Rights Reserved.
+            </span>
+            <span>
+                이 사이트는 '조리식품의 레시피 DB' Open API를 이용한 사이트입니다
+            </span>
+        </footer>
+        <div id="modal">
+            <div id="registration-container">
+                <i class="fi fi-br-cross"></i>
+                <img src="../images/logo-icon.png" id="registration-logo">
+                <form id="login-form">
+                    <span class="registration-form-title">
+                        로그인
+                    </span>
+                    <span class="registration-input-container">
+                        <span class="registration-input-label">
+                            아이디
+                        </span>
+                        <input type="text" autocomplete="username" class="registration-input-box">
+                    </span>
+                    <span class="registration-input-container">
+                        <span class="registration-input-label">
+                            비밀번호
+                        </span>
+                        <input type="password" class="registration-input-box">
+                    </span>
+                    <button class="registration-submit">
+                        로그인
+                    </button>
+                </form>
+                <form id="signup-form">
+                    <span class="registration-form-title">
+                        회원가입
+                    </span>
+                    <span class="registration-input-container">
+                        <span class="registration-input-label">
+                            아이디
+                        </span>
+                        <input type="text" autocomplete="username" class="registration-input-box">
+                    </span>
+                    <span class="registration-input-container">
+                        <span class="registration-input-label">
+                            비밀번호
+                        </span>
+                        <input type="password" name="password1" class="registration-input-box">
+                    </span>
+                    <span class="registration-input-container">
+                        <span class="registration-input-label">
+                            비밀번호 확인
+                        </span>
+                        <input type="password" name="password2" class="registration-input-box">
+                    </span>
+                    <button class="registration-submit">
+                        회원가입
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../js/common.js"></script>
+    <script src="../js/util.js"></script>
+</body>
+
+</html>
