@@ -306,7 +306,7 @@ i.fi.fi-rr-settings-sliders {
     right: 6%;
     position: absolute;
     color: rgb(187, 187, 187);
-    font-size: 190%;
+    font-size: 230%;
 
     transition: color 0.05s ease-in-out, scale 0.05s ease-in-out;
 }
@@ -316,7 +316,7 @@ i.fi.fi-rr-settings-sliders {
     right: 6%;
     position: absolute;
     color: rgb(187, 187, 187);
-    font-size: 190%;
+    font-size: 230%;
     color: #f35a5a;
     opacity: 0;
     transition: opacity 0.09s ease-in-out, scale 0.09s ease-in-out;
