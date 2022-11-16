@@ -9,7 +9,7 @@ if (q === null) {
     q = "";
 }
 const urlBase =
-    "https://oneee-cors.herokuapp.com/https://openapi.foodsafetykorea.go.kr/api/453d17302d4f4fedac86/COOKRCP01/json/";
+    "https://openapi.foodsafetykorea.go.kr/api/453d17302d4f4fedac86/COOKRCP01/json/";
 const PAGE_SIZE = 16;
 let page = 1;
 
@@ -71,6 +71,7 @@ function displayEmptyList() {
 function createRecipeCards() {
     recipeJson = getLocalStorageItems(filterBtn.value);
 
+    window.scrollTo({ top: 0 });
     removeElementById("list");
     removeElementById("empty-container");
     removeElementById("loading-container");
@@ -250,23 +251,32 @@ function favBtnInit(favBtns) {
     }
 }
 
-async function getAPI(q, isLast) {
-    let page = 0;
-    if (isLast) page = 1000;
-    await fetch(`${urlBase}${1 + page}/${1000 + page}/RCP_NM=${q}`, {
+async function fetcha(page, q) {
+    const data = await fetch(`${urlBase}${1 + page}/${1000 + page}/RCP_NM=${q}`, {
         headers: {
             Origin: "http://localhost:5500/",
         },
     })
         .then((response) => response.json())
-        .then((data) => {
-            const jsonList = data.COOKRCP01.row;
-            if (typeof jsonList !== "undefined") {
-                for (const index in jsonList) {
-                    dataSet.push(jsonList[index]);
-                }
+        .catch(() => setTimeout(() => fetcha(page, q), 200));
+
+    if (typeof (await data) === "number") {
+        return await fetcha(page, q);
+    }
+    return await data;
+}
+
+async function getAPI(q, isLast) {
+    let page = 0;
+    if (isLast) page = 1000;
+    await fetcha(page, q).then((data) => {
+        const jsonList = data.COOKRCP01.row;
+        if (typeof jsonList !== "undefined") {
+            for (const index in jsonList) {
+                dataSet.push(jsonList[index]);
             }
-        });
+        }
+    });
 }
 
 async function searchRecipe(event) {
