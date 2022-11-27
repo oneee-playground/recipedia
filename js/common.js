@@ -63,7 +63,7 @@ async function searchFavs() {
     await getAPI("*", false).then(getAPI("*", true));
 
     if (token !== "") {
-        // await getUserFavs(token);
+        await getUserFavs(token);
     }
     const list = await localStorage.getItem("favs").split(",");
 
