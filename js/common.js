@@ -2,6 +2,7 @@ const searchForm = document.getElementById("search-box");
 const filterBtn = document.getElementsByTagName("select")[0];
 const insideContainer = document.getElementById("inside-container");
 const listTitle = document.getElementById("list-title");
+let token = getCookie("token");
 
 let dataSet = [];
 let q = new URLSearchParams(window.location.search).get("q");
@@ -23,17 +24,59 @@ if (searchForm) {
 window.addEventListener("load", handleWindowLoad);
 
 async function handleWindowLoad() {
-    const isFirstTimeHome = localStorage.getItem("firstTimeHome");
+    const notFirstTimeHome = localStorage.getItem("firstTimeHome");
+    const notFirstTimeFavs = localStorage.getItem("firstTimeFavs");
     const path = window.location.pathname;
+
+    if (token === "") {
+        document.getElementById("log-out").style.display = "none";
+        document.getElementById("favs").style.display = "none";
+    } else {
+        document.getElementById("profile").style.display = "none";
+    }
+
     if (path !== "/html/detail.html") {
         searchForm["q"].value = q;
         removeElementById("paginator-container");
         displayLoadingScreen();
-        if (isFirstTimeHome === null && path === "/html/home.html") {
+        if (notFirstTimeFavs === null && path === "/html/favs.html") {
+            await searchFavs();
+            localStorage.setItem("firstTimeFavs", false);
+        }
+
+        if (notFirstTimeHome === null && path === "/html/home.html") {
             await searchRecipe();
-            localStorage.setItem("firstTimeHome", true);
+            localStorage.setItem("firstTimeHome", false);
         }
         await createRecipeCards();
+    }
+}
+
+async function searchFavs() {
+    localStorage.clear();
+    dataSet = [];
+    removeElementById("empty-container");
+    removeElementById("paginator-container");
+    removeElementById("loading-container");
+    displayLoadingScreen();
+
+    await getAPI("*", false).then(getAPI("*", true));
+
+    if (token !== "") {
+        // await getUserFavs(token);
+    }
+    const list = await localStorage.getItem("favs").split(",");
+
+    dataSet = dataSet.filter((data) => {
+        for (const index in list) {
+            if (data.RCP_SEQ === list[index]) {
+                return true;
+            }
+        }
+        return false;
+    });
+    for (const index in dataSet) {
+        localStorage.setItem(index, JSON.stringify(dataSet[index]));
     }
 }
 
@@ -183,10 +226,25 @@ function createPageBtn(num) {
     return pageBlock;
 }
 
+function checkFav(pk) {
+    let favList = localStorage.getItem("favs");
+    if (favList !== null) {
+        favList = favList.split(",");
+        for (const index in favList) {
+            if (favList[index] === pk) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function createRecipeCard(recipe) {
     const recipePK = recipe.RCP_SEQ;
     let imageURL = recipe.ATT_FILE_NO_MAIN;
     const recipeName = recipe.RCP_NM;
+
+    const isFav = checkFav(recipePK);
 
     const a = document.createElement("a");
     a.href = `./detail.html?pk=${recipePK}&q=${q}`;
@@ -194,6 +252,8 @@ function createRecipeCard(recipe) {
     const recipeCard = document.createElement("span");
     recipeCard.className = "recipe-card";
     a.appendChild(recipeCard);
+
+    recipeCard.pk = recipePK;
 
     const recipeThumbnail = document.createElement("div");
     recipeThumbnail.className = "recipe-thumbnail";
@@ -209,6 +269,10 @@ function createRecipeCard(recipe) {
     i2.className = "fi fi-rs-heart fav-btn";
     recipeThumbnail.appendChild(i2);
 
+    if (isFav) {
+        i1.classList.add("fav-btn-block-active");
+        i2.classList.add("hover-fav-btn");
+    }
     const recipeInfo = document.createElement("div");
     recipeInfo.className = "recipe-info";
     recipeCard.appendChild(recipeInfo);
@@ -252,11 +316,7 @@ function favBtnInit(favBtns) {
 }
 
 async function fetcha(page, q) {
-    const data = await fetch(`${urlBase}${1 + page}/${1000 + page}/RCP_NM=${q}`, {
-        headers: {
-            Origin: "http://localhost:5500/",
-        },
-    })
+    const data = await fetch(`${urlBase}${1 + page}/${1000 + page}/RCP_NM=${q}`)
         .then((response) => response.json())
         .catch(() => setTimeout(() => fetcha(page, q), 200));
 
@@ -279,6 +339,23 @@ async function getAPI(q, isLast) {
     });
 }
 
+async function getUserFavs() {
+    const data = {
+        method: "POST",
+        body: JSON.stringify({ token }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+
+    fetch("/user/recipe", data)
+        .then((response) => response.json())
+        .then((data) => {
+            const list = data.list.toString();
+            localStorage.setItem("favs", list);
+        });
+}
+
 async function searchRecipe(event) {
     q = "*";
     if (typeof event !== "undefined") {
@@ -295,6 +372,9 @@ async function searchRecipe(event) {
     await getAPI(q, false).then(getAPI(q, true));
     for (const index in dataSet) {
         localStorage.setItem(index, JSON.stringify(dataSet[index]));
+    }
+    if (token !== "") {
+        // await getUserFavs(token);
     }
     if (typeof event !== "undefined") {
         await window.location.replace(`search.html?q=${q}`);
@@ -336,4 +416,17 @@ function handleThumbnailDoesntExist(imageURL, recipe) {
         }
     }
     return imageURL;
+}
+
+function getCookie(key) {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+        var keys = cookies[i].split("=");
+        if (keys[0].trim() == key) {
+            if (keys[1].trim() != "") {
+                return keys[1].trim();
+            }
+        }
+    }
+    return "";
 }

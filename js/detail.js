@@ -6,7 +6,11 @@ q = new URLSearchParams(urlParameter).get("q");
 if (q) {
     const prevPageBtn = document.createElement("a");
     prevPageBtn.className = "nav-terminal";
-    prevPageBtn.href = `./search.html?q=${q}`;
+    if (localStorage.getItem("favs") !== null) {
+        prevPageBtn.href = "./favs.html";
+    } else {
+        prevPageBtn.href = `./search.html?q=${q}`;
+    }
 
     const prevIcon = document.createElement("i");
     prevIcon.className = "fi fi-rr-arrow-small-left";
@@ -161,7 +165,7 @@ function getIngredientList() {
     const string = recipe.RCP_PARTS_DTLS;
     const ingredientList = string.match(regex);
     const keyReGex = /[가-힣]+((\s[가-힣]+)|\([A-z가-힣]+\))*/;
-    const valueReGex = /[0-9/\.½]+[가-힣A-z]+/;
+    const valueReGex = /[0-9/\.½¼]+[가-힣A-z]+/;
 
     const list = [];
 
