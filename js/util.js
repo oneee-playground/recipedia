@@ -144,7 +144,7 @@ async function sendCreateRequest() {
         },
     };
 
-    await fetch("/user/create", data).catch("aa");
+    await fetch("/user/create", data);
     await sendAuthorizationRequest(username, password);
 }
 
