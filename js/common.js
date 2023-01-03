@@ -44,7 +44,10 @@ async function handleWindowLoad() {
         //     localStorage.setItem("firstTimeFavs", false);
         // }
 
-        if (notFirstTimeHome === null && path === "/Recipedia-front/index.html") {
+        if (
+            (notFirstTimeHome === null && path === "/Recipedia-front/index.html") ||
+            path === "/Recipedia-front/"
+        ) {
             await searchRecipe();
             localStorage.setItem("firstTimeHome", false);
         }
@@ -247,7 +250,7 @@ function createRecipeCard(recipe) {
     // const isFav = checkFav(recipePK);
 
     const a = document.createElement("a");
-    a.href = `../html/detail.html?pk=${recipePK}&q=${q}`;
+    a.href = `/Recipedia-front/html/detail.html?pk=${recipePK}&q=${q}`;
 
     const recipeCard = document.createElement("span");
     recipeCard.className = "recipe-card";
