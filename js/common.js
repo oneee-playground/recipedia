@@ -2,7 +2,7 @@ const searchForm = document.getElementById("search-box");
 const filterBtn = document.getElementsByTagName("select")[0];
 const insideContainer = document.getElementById("inside-container");
 const listTitle = document.getElementById("list-title");
-let token = getCookie("token");
+// let token = getCookie("token");
 
 let dataSet = [];
 let q = new URLSearchParams(window.location.search).get("q");
@@ -25,26 +25,26 @@ window.addEventListener("load", handleWindowLoad);
 
 async function handleWindowLoad() {
     const notFirstTimeHome = localStorage.getItem("firstTimeHome");
-    const notFirstTimeFavs = localStorage.getItem("firstTimeFavs");
+    // const notFirstTimeFavs = localStorage.getItem("firstTimeFavs");
     const path = window.location.pathname;
 
-    if (token === "") {
-        document.getElementById("log-out").style.display = "none";
-        document.getElementById("favs").style.display = "none";
-    } else {
-        document.getElementById("profile").style.display = "none";
-    }
+    // if (token === "") {
+    document.getElementById("log-out").style.display = "none";
+    document.getElementById("favs").style.display = "none";
+    // } else {
+    //     document.getElementById("profile").style.display = "none";
+    // }
 
-    if (path !== "/html/detail.html") {
+    if (path !== "/detail.html") {
         searchForm["q"].value = q;
         removeElementById("paginator-container");
         displayLoadingScreen();
-        if (notFirstTimeFavs === null && path === "/html/favs.html") {
-            await searchFavs();
-            localStorage.setItem("firstTimeFavs", false);
-        }
+        // if (notFirstTimeFavs === null && path === "/html/favs.html") {
+        //     await searchFavs();
+        //     localStorage.setItem("firstTimeFavs", false);
+        // }
 
-        if (notFirstTimeHome === null && path === "/html/home.html") {
+        if (notFirstTimeHome === null && path === "/index.html") {
             await searchRecipe();
             localStorage.setItem("firstTimeHome", false);
         }
@@ -226,28 +226,28 @@ function createPageBtn(num) {
     return pageBlock;
 }
 
-function checkFav(pk) {
-    let favList = localStorage.getItem("favs");
-    if (favList !== null) {
-        favList = favList.split(",");
-        for (const index in favList) {
-            if (favList[index] === pk) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
+// function checkFav(pk) {
+//     let favList = localStorage.getItem("favs");
+//     if (favList !== null) {
+//         favList = favList.split(",");
+//         for (const index in favList) {
+//             if (favList[index] === pk) {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// }
 
 function createRecipeCard(recipe) {
     const recipePK = recipe.RCP_SEQ;
     let imageURL = recipe.ATT_FILE_NO_MAIN;
     const recipeName = recipe.RCP_NM;
 
-    const isFav = checkFav(recipePK);
+    // const isFav = checkFav(recipePK);
 
     const a = document.createElement("a");
-    a.href = `./detail.html?pk=${recipePK}&q=${q}`;
+    a.href = `/html/detail.html?pk=${recipePK}&q=${q}`;
 
     const recipeCard = document.createElement("span");
     recipeCard.className = "recipe-card";
@@ -269,10 +269,10 @@ function createRecipeCard(recipe) {
     i2.className = "fi fi-rs-heart fav-btn";
     recipeThumbnail.appendChild(i2);
 
-    if (isFav) {
-        i1.classList.add("fav-btn-block-active");
-        i2.classList.add("hover-fav-btn");
-    }
+    // if (isFav) {
+    //     i1.classList.add("fav-btn-block-active");
+    //     i2.classList.add("hover-fav-btn");
+    // }
     const recipeInfo = document.createElement("div");
     recipeInfo.className = "recipe-info";
     recipeCard.appendChild(recipeInfo);
@@ -339,22 +339,22 @@ async function getAPI(q, isLast) {
     });
 }
 
-async function getUserFavs() {
-    const data = {
-        method: "POST",
-        body: JSON.stringify({ token }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
+// async function getUserFavs() {
+//     const data = {
+//         method: "POST",
+//         body: JSON.stringify({ token }),
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//     };
 
-    fetch("/user/recipe", data)
-        .then((response) => response.json())
-        .then((data) => {
-            const list = data.list.toString();
-            localStorage.setItem("favs", list);
-        });
-}
+//     fetch("/user/recipe", data)
+//         .then((response) => response.json())
+//         .then((data) => {
+//             const list = data.list.toString();
+//             localStorage.setItem("favs", list);
+//         });
+// }
 
 async function searchRecipe(event) {
     q = "*";
@@ -373,11 +373,11 @@ async function searchRecipe(event) {
     for (const index in dataSet) {
         localStorage.setItem(index, JSON.stringify(dataSet[index]));
     }
-    if (token !== "") {
-        // await getUserFavs(token);
-    }
+    // if (token !== "") {
+    //     await getUserFavs(token);
+    // }
     if (typeof event !== "undefined") {
-        await window.location.replace(`search.html?q=${q}`);
+        await window.location.replace(`/html/search.html?q=${q}`);
     }
 }
 
@@ -418,15 +418,15 @@ function handleThumbnailDoesntExist(imageURL, recipe) {
     return imageURL;
 }
 
-function getCookie(key) {
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++) {
-        var keys = cookies[i].split("=");
-        if (keys[0].trim() == key) {
-            if (keys[1].trim() != "") {
-                return keys[1].trim();
-            }
-        }
-    }
-    return "";
-}
+// function getCookie(key) {
+//     var cookies = document.cookie.split(";");
+//     for (var i = 0; i < cookies.length; i++) {
+//         var keys = cookies[i].split("=");
+//         if (keys[0].trim() == key) {
+//             if (keys[1].trim() != "") {
+//                 return keys[1].trim();
+//             }
+//         }
+//     }
+//     return "";
+// }

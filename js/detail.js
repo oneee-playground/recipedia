@@ -9,7 +9,7 @@ if (q) {
     if (localStorage.getItem("favs") !== null) {
         prevPageBtn.href = "./favs.html";
     } else {
-        prevPageBtn.href = `./search.html?q=${q}`;
+        prevPageBtn.href = `/html/search.html?q=${q}`;
     }
 
     const prevIcon = document.createElement("i");
@@ -22,7 +22,7 @@ if (q) {
 
 const homeBtn = document.createElement("a");
 homeBtn.className = "nav-terminal";
-homeBtn.href = `./home.html`;
+homeBtn.href = `../index.html`;
 
 const homeIcon = document.createElement("i");
 homeIcon.className = "fi fi-rr-home";

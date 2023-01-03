@@ -11,7 +11,7 @@ a {
 }
 
 body {
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     font-family: "Noto Sans KR", sans-serif;
 }
 
