@@ -52,7 +52,7 @@ function displayEmptyPage() {
     insideContainer.appendChild(errorBox);
 
     const img = document.createElement("img");
-    img.src = "../images/error.png";
+    img.src = "/Recipeida-front/images/error.png";
     img.id = "not-found-image";
     errorBox.appendChild(img);
 
