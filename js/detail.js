@@ -9,7 +9,7 @@ if (q) {
     if (localStorage.getItem("favs") !== null) {
         prevPageBtn.href = "./favs.html";
     } else {
-        prevPageBtn.href = `/html/search.html?q=${q}`;
+        prevPageBtn.href = `../html/search.html?q=${q}`;
     }
 
     const prevIcon = document.createElement("i");
@@ -52,7 +52,7 @@ function displayEmptyPage() {
     insideContainer.appendChild(errorBox);
 
     const img = document.createElement("img");
-    img.src = "/images/error.png";
+    img.src = "../images/error.png";
     img.id = "not-found-image";
     errorBox.appendChild(img);
 
