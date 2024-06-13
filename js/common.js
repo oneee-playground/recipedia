@@ -45,8 +45,8 @@ async function handleWindowLoad() {
         // }
 
         if (
-            (notFirstTimeHome === null && path === "/Recipedia-front/index.html") ||
-            path === "/Recipedia-front/"
+            (notFirstTimeHome === null && path === "/recipedia/index.html") ||
+            path === "/recipedia/"
         ) {
             await searchRecipe();
             localStorage.setItem("firstTimeHome", false);
@@ -105,7 +105,7 @@ function displayEmptyList() {
 
     const notFoundImage = document.createElement("img");
     notFoundImage.id = "not-found-image";
-    notFoundImage.src = "/Recipedia-front/images/error.png";
+    notFoundImage.src = "/recipedia/images/error.png";
     emptyContainer.appendChild(notFoundImage);
 
     const notFoundText = document.createElement("span");
@@ -250,7 +250,7 @@ function createRecipeCard(recipe) {
     // const isFav = checkFav(recipePK);
 
     const a = document.createElement("a");
-    a.href = `/Recipedia-front/html/detail.html?pk=${recipePK}&q=${q}`;
+    a.href = `/recipedia/html/detail.html?pk=${recipePK}&q=${q}`;
 
     const recipeCard = document.createElement("span");
     recipeCard.className = "recipe-card";
@@ -380,7 +380,7 @@ async function searchRecipe(event) {
     //     await getUserFavs(token);
     // }
     if (typeof event !== "undefined") {
-        await window.location.replace(`/Recipedia-front/html/search.html?q=${q}`);
+        await window.location.replace(`/recipedia/html/search.html?q=${q}`);
     }
 }
 
@@ -394,7 +394,7 @@ async function displayLoadingScreen() {
 
     const loadingGif = document.createElement("img");
     loadingGif.id = "loading-gif";
-    loadingGif.src = "/Recipedia-front/images/spin.gif";
+    loadingGif.src = "/recipedia/images/spin.gif";
     loadingContainer.appendChild(loadingGif);
 
     const loadingText = document.createElement("span");
